@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_application_3/Pages/homepage.dart';
 
+import 'Utils/theme.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -15,7 +17,10 @@ class MyApp extends StatelessWidget {
         SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: MyHome(),
+      home: MyHome(), 
+      themeMode: ThemeMode.system,
+      theme: MyTheme.lightTheme(context),
+      darkTheme: MyTheme.darkTheme(context),
     );
   }
 }

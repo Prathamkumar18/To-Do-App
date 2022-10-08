@@ -1,9 +1,21 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import 'package:flutter_application_3/Utils/theme.dart';
+import 'package:velocity_x/velocity_x.dart';
+import '../Model/todo.dart';
 
 class ToDoItem extends StatelessWidget {
-  const ToDoItem({super.key});
+  final Todo todo;
+  final change;
+  final delete;
+  const ToDoItem({
+    Key? key,
+    required this.todo,
+    required this.change,
+    required this.delete,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,14 +23,18 @@ class ToDoItem extends StatelessWidget {
       margin: EdgeInsets.only(bottom: 20),
       child: ListTile(
         contentPadding: EdgeInsets.symmetric(vertical: 3, horizontal: 15),
-        onTap: () {},
-        tileColor: Colors.white,
+        onTap: () {
+          change(todo);
+        },
+        tileColor: context.cardColor,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        leading: Icon(Icons.check_box, color: MyTheme().tdBlue),
+        leading: Icon(
+            (todo.isDone) ? Icons.check_box : Icons.check_box_outline_blank,
+            color: MyTheme.tdBlue),
         title: Text(
-          "TOdo task 1",
+          "${todo.text}",
           style: TextStyle(
-            color: Colors.black,
+            color: context.accentColor,
             fontSize: 13,
           ),
         ),
@@ -26,7 +42,7 @@ class ToDoItem extends StatelessWidget {
           height: 35,
           width: 35,
           decoration: BoxDecoration(
-            color: MyTheme().tdRed,
+            color: MyTheme.tdRed,
             borderRadius: BorderRadius.circular(5),
           ),
           child: IconButton(
@@ -35,7 +51,9 @@ class ToDoItem extends StatelessWidget {
             ),
             iconSize: 18,
             color: Colors.white,
-            onPressed: () {},
+            onPressed: () {
+              delete(todo.id);
+            },
           ),
         ),
       ),
